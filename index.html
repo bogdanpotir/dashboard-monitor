@@ -26,9 +26,16 @@
         <p class="sub">Foglio report: <span id="foglioReport">--</span></p>
       </article>
 
-      <article class="card secondary">
+      <article class="card secondary" id="mediaCard">
         <p class="label">Media giornaliera</p>
-        <div class="value" id="mediaGiornaliera">--</div>
+        <div class="media-row">
+          <div class="value" id="mediaGiornaliera">--</div>
+          <div class="delta-box" aria-label="Scostamento rispetto al target 110">
+            <span class="delta-label">Scostamento</span>
+            <span class="delta-value" id="scostamentoMedia">--</span>
+            <span class="delta-target">vs target 110</span>
+          </div>
+        </div>
         <p class="sub">Foglio colli: <span id="foglioColli">--</span></p>
       </article>
     </section>
