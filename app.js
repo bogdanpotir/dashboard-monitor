@@ -123,7 +123,6 @@ function normalizeTrend(points) {
     }))
     .filter((p) => p.ora !== "" && !Number.isNaN(p.media));
 
-  // Elimina solo le ore future a zero: conserva fino all'ultima media > 0.
   const lastRealIndex = cleaned.reduce((last, p, i) => p.media > 0 ? i : last, -1);
   if (lastRealIndex === -1) return [];
 

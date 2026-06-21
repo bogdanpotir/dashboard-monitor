@@ -1,3 +1,4 @@
+
 :root {
   --bg: #0b1220;
   --panel: #111c31;
@@ -82,22 +83,14 @@ h1 {
 }
 
 .date-badge {
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 2px;
+  justify-content: center;
+  min-width: clamp(130px, 12vw, 200px);
   border-radius: 20px;
-  padding: 10px 16px;
-}
-.date-badge span {
-  text-transform: uppercase;
-  letter-spacing: .12em;
-  font-weight: 800;
-  font-size: clamp(9px, .7vw, 12px);
-  color: var(--muted);
+  padding: 14px 18px;
 }
 .date-badge strong {
   color: var(--text);
-  font-size: clamp(17px, 1.2vw, 24px);
+  font-size: clamp(18px, 1.25vw, 26px);
   line-height: 1;
 }
 
@@ -113,7 +106,7 @@ h1 {
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(12px, 1.4vw, 22px);
 }
 
@@ -131,6 +124,11 @@ h1 {
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
+}
+
+.primary-full {
+  grid-column: 1 / -1;
+  min-height: clamp(170px, 23vh, 240px);
 }
 
 .card.primary { background-color: rgba(14, 116, 144, .24); }
@@ -153,6 +151,9 @@ h1 {
   line-height: .9;
   letter-spacing: -0.055em;
   white-space: nowrap;
+}
+.primary-full .value {
+  font-size: clamp(56px, 7vw, 120px);
 }
 
 .metric-row {
@@ -281,6 +282,7 @@ svg { width: 100%; height: 100%; display: block; }
     grid-template-rows: auto;
   }
   .cards { grid-template-columns: 1fr; }
+  .primary-full { grid-column: auto; }
   .topbar, .chart-header { flex-direction: column; align-items: stretch; }
   .header-actions { justify-content: flex-start; }
   .metric-row { align-items: flex-start; }
@@ -293,7 +295,9 @@ svg { width: 100%; height: 100%; display: block; }
   .dashboard { gap: 10px; padding: 12px 0; }
   h1 { font-size: clamp(34px, 3.5vw, 58px); }
   .card { min-height: 132px; padding: 16px 22px; }
+  .primary-full { min-height: 150px; }
   .value { font-size: clamp(44px, 5.4vw, 88px); }
+  .primary-full .value { font-size: clamp(52px, 6vw, 96px); }
   .delta-value { font-size: clamp(22px, 2.4vw, 40px); }
   .sub { font-size: clamp(12px, .9vw, 17px); }
   .chart-card { padding: 14px 22px 20px; }

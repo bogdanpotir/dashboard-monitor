@@ -1,0 +1,1 @@
+Sostituisci su GitHub i file index.html, style.css e app.js. Poi fai commit, attendi 1-3 minuti e aggiorna la pagina con CTRL+F5.
