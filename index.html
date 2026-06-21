@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard Operativa</title>
+  <title>Dashboard Operativa - PAC2000A Fiano Romano</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main class="dashboard">
     <header class="topbar">
-      <div>
-        <p class="eyebrow">Magazzino</p>
+      <div class="title-block">
+        <p class="eyebrow">Magazzino Pac2000A Fiano Romano</p>
         <h1>Andamento operativo</h1>
       </div>
-      <div class="status">
+      <div class="status" aria-live="polite">
         <span class="dot" id="statusDot"></span>
         <span id="statusText">Caricamento dati...</span>
       </div>
     </header>
 
-    <section class="cards">
+    <section class="cards" aria-label="Indicatori principali">
       <article class="card primary">
         <p class="label">Efficienza mensile</p>
         <div class="value" id="efficienza">--</div>
@@ -44,8 +44,9 @@
           <strong id="ultimoAggiornamento">--</strong>
         </div>
       </div>
+
       <div class="chart-wrap">
-        <svg id="lineChart" viewBox="0 0 1000 420" role="img" aria-label="Grafico andamento media ora per ora"></svg>
+        <svg id="lineChart" viewBox="0 0 1100 430" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Grafico andamento media ora per ora"></svg>
         <div class="empty" id="emptyState">Nessun dato orario disponibile per il giorno selezionato.</div>
       </div>
     </section>

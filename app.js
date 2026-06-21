@@ -22,7 +22,25 @@ function updateCards(data) {
   $("foglioColli").textContent = data.foglio_colli || "--";
 }
 
-function drawChart(points) {
+function normalizeTrend(points) {
+  if (!Array.isArray(points)) return [];
+
+  const cleaned = points
+    .map((p) => ({
+      ora: String(p.ora || "").trim(),
+      media: Number(p.media)
+    }))
+    .filter((p) => p.ora !== "" && !Number.isNaN(p.media));
+
+  // Elimina le ore future a zero: conserva solo fino all'ultima media > 0.
+  const lastRealIndex = cleaned.reduce((last, p, i) => p.media > 0 ? i : last, -1);
+  if (lastRealIndex === -1) return [];
+
+  return cleaned.slice(0, lastRealIndex + 1);
+}
+
+function drawChart(rawPoints) {
+  const points = normalizeTrend(rawPoints);
   const svg = $("lineChart");
   const empty = $("emptyState");
   svg.innerHTML = "";
@@ -33,8 +51,8 @@ function drawChart(points) {
   }
   empty.classList.remove("show");
 
-  const W = 1000, H = 420;
-  const margin = { top: 34, right: 44, bottom: 70, left: 74 };
+  const W = 1100, H = 430;
+  const margin = { top: 42, right: 44, bottom: 94, left: 82 };
   const cw = W - margin.left - margin.right;
   const ch = H - margin.top - margin.bottom;
 
@@ -53,15 +71,15 @@ function drawChart(points) {
     return el;
   }
 
-  // grid and y labels
   const gridLines = 4;
   for (let i = 0; i <= gridLines; i++) {
     const val = minVal + (maxVal - minVal) * i / gridLines;
     const yy = y(val);
     add("line", { x1: margin.left, y1: yy, x2: W - margin.right, y2: yy, class: "grid" });
-    add("text", { x: margin.left - 16, y: yy + 7, class: "tick", "text-anchor": "end" }, Math.round(val).toString());
+    add("text", { x: margin.left - 16, y: yy + 6, class: "tick", "text-anchor": "end" }, Math.round(val).toString());
   }
 
+  add("text", { x: 18, y: margin.top + 12, class: "axis-title", transform: `rotate(-90 18 ${margin.top + 12})` }, "Media/h");
   add("line", { x1: margin.left, y1: margin.top, x2: margin.left, y2: H - margin.bottom, class: "axis" });
   add("line", { x1: margin.left, y1: H - margin.bottom, x2: W - margin.right, y2: H - margin.bottom, class: "axis" });
 
@@ -71,12 +89,40 @@ function drawChart(points) {
   add("path", { d: areaPath, class: "area" });
   add("path", { d: linePath, class: "line" });
 
+  const tickStep = points.length > 14 ? 3 : points.length > 10 ? 2 : 1;
+  const labelStep = points.length > 12 ? 3 : points.length > 8 ? 2 : 1;
+
+  const maxIndex = values.length ? points.findIndex(p => Number(p.media) === Math.max(...values)) : -1;
+  const lastIndex = points.length - 1;
+
   points.forEach((p, i) => {
     const xx = x(i);
     const yy = y(p.media);
+
     add("circle", { cx: xx, cy: yy, r: 7, class: "point" });
-    add("text", { x: xx, y: H - margin.bottom + 38, class: "tick", "text-anchor": "middle" }, p.ora);
-    add("text", { x: xx, y: yy - 16, class: "point-label", "text-anchor": "middle" }, formatNumber(p.media));
+
+    if (i === 0 || i === lastIndex || i % tickStep === 0) {
+      const label = add("text", {
+        x: xx,
+        y: H - margin.bottom + 38,
+        class: "tick-x",
+        "text-anchor": "end",
+        transform: `rotate(-35 ${xx} ${H - margin.bottom + 38})`
+      }, p.ora);
+    }
+
+    // Mostra i valori solo dove servono, così non si sovrappongono.
+    // Gli zeri iniziali non vengono etichettati.
+    const shouldShowValue = p.media > 0 && (points.length <= 8 || i % labelStep === 0 || i === maxIndex || i === lastIndex);
+    if (shouldShowValue) {
+      const offset = i % 2 === 0 ? -18 : 26;
+      add("text", {
+        x: xx,
+        y: yy + offset,
+        class: "point-label",
+        "text-anchor": "middle"
+      }, formatNumber(p.media));
+    }
   });
 }
 
