@@ -1,8 +1,10 @@
 ﻿{
   "efficienza_mensile": 66.9055204512688,
   "media_giornaliera": 102.601156069364,
+  "media_mensile_pk": 105.971110213735,
   "foglio_report": "Giugno 2026",
   "foglio_colli": "21-06-2026",
-  "ultimo_aggiornamento": "21/06/2026 12:37:26",
+  "data_dashboard": "21/06/2026",
+  "ultimo_aggiornamento": "21/06/2026 13:08:18",
   "trend_orario": [{"ora":"04:00","media":0},{"ora":"05:00","media":0},{"ora":"06:00","media":109.64},{"ora":"07:00","media":98.6538461538462},{"ora":"08:00","media":80.6857142857143},{"ora":"09:00","media":96.1047619047619},{"ora":"10:00","media":92.8842105263158},{"ora":"11:00","media":97.0120481927711},{"ora":"12:00","media":95.82},{"ora":"13:00","media":190.92},{"ora":"14:00","media":0},{"ora":"15:00","media":0},{"ora":"16:00","media":0},{"ora":"17:00","media":0},{"ora":"18:00","media":0},{"ora":"19:00","media":0},{"ora":"20:00","media":0},{"ora":"21:00","media":0},{"ora":"21:30","media":0}]
 }

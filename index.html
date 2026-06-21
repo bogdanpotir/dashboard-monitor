@@ -13,9 +13,15 @@
         <p class="eyebrow">Magazzino Pac2000A Fiano Romano</p>
         <h1>Andamento operativo</h1>
       </div>
-      <div class="status" aria-live="polite">
-        <span class="dot" id="statusDot"></span>
-        <span id="statusText">Caricamento dati...</span>
+      <div class="header-actions">
+        <div class="date-badge" aria-label="Data del giorno">
+          <span>Data</span>
+          <strong id="dataGiorno">--</strong>
+        </div>
+        <div class="status" aria-live="polite">
+          <span class="dot" id="statusDot"></span>
+          <span id="statusText">Caricamento dati...</span>
+        </div>
       </div>
     </header>
 
@@ -26,17 +32,30 @@
         <p class="sub">Foglio report: <span id="foglioReport">--</span></p>
       </article>
 
-      <article class="card secondary" id="mediaCard">
+      <article class="card dynamic" id="mediaCard">
         <p class="label">Media giornaliera</p>
-        <div class="media-row">
+        <div class="metric-row">
           <div class="value" id="mediaGiornaliera">--</div>
-          <div class="delta-box" aria-label="Scostamento rispetto al target 110">
+          <div class="delta-box" aria-label="Scostamento media giornaliera rispetto al target 110">
             <span class="delta-label">Scostamento</span>
             <span class="delta-value" id="scostamentoMedia">--</span>
             <span class="delta-target">vs target 110</span>
           </div>
         </div>
         <p class="sub">Foglio colli: <span id="foglioColli">--</span></p>
+      </article>
+
+      <article class="card dynamic" id="mediaMensileCard">
+        <p class="label">Media mensile PK</p>
+        <div class="metric-row">
+          <div class="value" id="mediaMensilePk">--</div>
+          <div class="delta-box" aria-label="Scostamento media mensile PK rispetto al target 110">
+            <span class="delta-label">Scostamento</span>
+            <span class="delta-value" id="scostamentoMediaMensile">--</span>
+            <span class="delta-target">vs target 110</span>
+          </div>
+        </div>
+        <p class="sub">Foglio report: <span id="foglioReportMedia">--</span></p>
       </article>
     </section>
 

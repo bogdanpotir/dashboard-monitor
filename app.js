@@ -65,32 +65,52 @@ function formatDelta(value) {
   return `${sign}${delta.toLocaleString("it-IT", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%`;
 }
 
+function formatDateFromSheetName(sheetName) {
+  const raw = String(sheetName || "").trim();
+  const m = raw.match(/^(\d{2})-(\d{2})-(\d{4})$/);
+  if (m) return `${m[1]}/${m[2]}/${m[3]}`;
+  return new Date().toLocaleDateString("it-IT", { day: "2-digit", month: "2-digit", year: "numeric" });
+}
+
 async function loadData() {
   const res = await fetch(`${DATA_URL}?t=${Date.now()}`, { cache: "no-store" });
   if (!res.ok) throw new Error(`Errore caricamento dati: ${res.status}`);
   return res.json();
 }
 
+function updateDynamicCard(cardId, value, deltaId) {
+  const card = $(cardId);
+  const n = Number(value);
+  const c = colorForMedia(n);
+  const deltaTextColor = textColorForMedia(n);
+
+  if (!Number.isNaN(n)) {
+    card.style.setProperty("--metric-main", rgb(c, 0.44));
+    card.style.setProperty("--metric-soft", rgb(c, 0.18));
+    card.style.setProperty("--metric-border", rgb(c, 0.55));
+    card.style.setProperty("--metric-glow", rgb(c, 0.18));
+  }
+
+  $(deltaId).textContent = formatDelta(value);
+  $(deltaId).style.color = deltaTextColor;
+}
+
 function updateCards(data) {
-  const media = Number(data.media_giornaliera);
-  const mediaCard = $("mediaCard");
-  const mediaColor = colorForMedia(media);
-  const deltaTextColor = textColorForMedia(media);
+  const mediaGiornaliera = data.media_giornaliera;
+  const mediaMensilePk = data.media_mensile_pk;
 
   $("efficienza").textContent = formatNumber(data.efficienza_mensile);
-  $("mediaGiornaliera").textContent = formatNumber(data.media_giornaliera);
-  $("scostamentoMedia").textContent = formatDelta(data.media_giornaliera);
-  $("scostamentoMedia").style.color = deltaTextColor;
+  $("mediaGiornaliera").textContent = formatNumber(mediaGiornaliera);
+  $("mediaMensilePk").textContent = formatNumber(mediaMensilePk);
+
+  updateDynamicCard("mediaCard", mediaGiornaliera, "scostamentoMedia");
+  updateDynamicCard("mediaMensileCard", mediaMensilePk, "scostamentoMediaMensile");
+
   $("ultimoAggiornamento").textContent = data.ultimo_aggiornamento || "--";
   $("foglioReport").textContent = data.foglio_report || "--";
+  $("foglioReportMedia").textContent = data.foglio_report || "--";
   $("foglioColli").textContent = data.foglio_colli || "--";
-
-  if (!Number.isNaN(media)) {
-    mediaCard.style.setProperty("--media-main", rgb(mediaColor, 0.44));
-    mediaCard.style.setProperty("--media-soft", rgb(mediaColor, 0.18));
-    mediaCard.style.setProperty("--media-border", rgb(mediaColor, 0.55));
-    mediaCard.style.setProperty("--media-glow", rgb(mediaColor, 0.18));
-  }
+  $("dataGiorno").textContent = formatDateFromSheetName(data.foglio_colli);
 }
 
 function normalizeTrend(points) {
@@ -151,7 +171,6 @@ function drawChart(rawPoints) {
     add("text", { x: margin.left - 16, y: yy + 6, class: "tick", "text-anchor": "end" }, Math.round(val).toString());
   }
 
-  // Linea target a 110.
   const targetY = y(MEDIA_TARGET);
   if (targetY >= margin.top && targetY <= H - margin.bottom) {
     add("line", { x1: margin.left, y1: targetY, x2: W - margin.right, y2: targetY, class: "target-line" });
@@ -166,7 +185,6 @@ function drawChart(rawPoints) {
   const areaPath = `${linePath} L${x(points.length - 1)},${H - margin.bottom} L${x(0)},${H - margin.bottom} Z`;
   add("path", { d: areaPath, class: "area" });
 
-  // Linea colorata a segmenti secondo la stessa regola del riquadro media.
   for (let i = 0; i < points.length - 1; i++) {
     const avgSegment = (points[i].media + points[i + 1].media) / 2;
     const c = colorForMedia(avgSegment);
@@ -182,8 +200,8 @@ function drawChart(rawPoints) {
 
   const tickStep = points.length > 14 ? 3 : points.length > 10 ? 2 : 1;
   const labelStep = points.length > 12 ? 3 : points.length > 8 ? 2 : 1;
-
-  const maxIndex = values.length ? points.findIndex(p => Number(p.media) === Math.max(...values)) : -1;
+  const maxValue = values.length ? Math.max(...values) : null;
+  const maxIndex = maxValue === null ? -1 : points.findIndex(p => Number(p.media) === maxValue);
   const lastIndex = points.length - 1;
 
   points.forEach((p, i) => {
