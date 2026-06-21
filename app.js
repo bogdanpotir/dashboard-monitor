@@ -72,6 +72,30 @@ function formatDateFromSheetName(sheetName) {
   return new Date().toLocaleDateString("it-IT", { day: "2-digit", month: "2-digit", year: "numeric" });
 }
 
+function formatHourLabel(value) {
+  const raw = String(value || "").trim();
+  if (raw === "") return "";
+
+  const timeMatch = raw.match(/^(\d{1,2})(?::|\.)(\d{2})$/);
+  if (timeMatch) {
+    const h = Number(timeMatch[1]);
+    const m = Number(timeMatch[2]);
+    if (!Number.isNaN(h) && !Number.isNaN(m)) {
+      return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+    }
+  }
+
+  const normalized = raw.replace(",", ".");
+  const n = Number(normalized);
+  if (!Number.isNaN(n)) {
+    const h = Math.floor(n);
+    const minutes = Math.round((n - h) * 60);
+    return `${String(h).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+  }
+
+  return raw;
+}
+
 async function loadData() {
   const res = await fetch(`${DATA_URL}?t=${Date.now()}`, { cache: "no-store" });
   if (!res.ok) throw new Error(`Errore caricamento dati: ${res.status}`);
@@ -118,7 +142,7 @@ function normalizeTrend(points) {
 
   const cleaned = points
     .map((p) => ({
-      ora: String(p.ora || "").trim(),
+      ora: formatHourLabel(p.ora),
       media: Number(p.media)
     }))
     .filter((p) => p.ora !== "" && !Number.isNaN(p.media));
@@ -142,7 +166,7 @@ function drawChart(rawPoints) {
   empty.classList.remove("show");
 
   const W = 1100, H = 430;
-  const margin = { top: 48, right: 48, bottom: 96, left: 82 };
+  const margin = { top: 48, right: 48, bottom: 118, left: 88 };
   const cw = W - margin.left - margin.right;
   const ch = H - margin.top - margin.bottom;
 
@@ -176,9 +200,11 @@ function drawChart(rawPoints) {
     add("text", { x: W - margin.right - 8, y: targetY - 10, class: "target-label", "text-anchor": "end" }, `Target ${MEDIA_TARGET}`);
   }
 
-  add("text", { x: 18, y: margin.top + 12, class: "axis-title", transform: `rotate(-90 18 ${margin.top + 12})` }, "Media/h");
+  const yAxisTitleY = margin.top + ch / 2 + 20;
+  add("text", { x: 24, y: yAxisTitleY, class: "axis-title", transform: `rotate(-90 24 ${yAxisTitleY})` }, "MEDIA");
   add("line", { x1: margin.left, y1: margin.top, x2: margin.left, y2: H - margin.bottom, class: "axis" });
   add("line", { x1: margin.left, y1: H - margin.bottom, x2: W - margin.right, y2: H - margin.bottom, class: "axis" });
+  add("text", { x: margin.left + cw / 2, y: H - 22, class: "axis-title", "text-anchor": "middle" }, "ORE");
 
   const linePath = points.map((p, i) => `${i === 0 ? "M" : "L"}${x(i)},${y(p.media)}`).join(" ");
   const areaPath = `${linePath} L${x(points.length - 1)},${H - margin.bottom} L${x(0)},${H - margin.bottom} Z`;
@@ -197,7 +223,7 @@ function drawChart(rawPoints) {
     });
   }
 
-  const tickStep = points.length > 14 ? 3 : points.length > 10 ? 2 : 1;
+  const tickStep = 1;
   const labelStep = points.length > 12 ? 3 : points.length > 8 ? 2 : 1;
   const maxValue = values.length ? Math.max(...values) : null;
   const maxIndex = maxValue === null ? -1 : points.findIndex(p => Number(p.media) === maxValue);
@@ -213,10 +239,10 @@ function drawChart(rawPoints) {
     if (i === 0 || i === lastIndex || i % tickStep === 0) {
       add("text", {
         x: xx,
-        y: H - margin.bottom + 42,
+        y: H - margin.bottom + 38,
         class: "tick-x",
         "text-anchor": "end",
-        transform: `rotate(-38 ${xx} ${H - margin.bottom + 42})`
+        transform: `rotate(-32 ${xx} ${H - margin.bottom + 38})`
       }, p.ora);
     }
 
