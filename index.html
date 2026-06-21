@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard Operativa</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="dashboard">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Magazzino</p>
+        <h1>Andamento operativo</h1>
+      </div>
+      <div class="status">
+        <span class="dot" id="statusDot"></span>
+        <span id="statusText">Caricamento dati...</span>
+      </div>
+    </header>
+
+    <section class="cards">
+      <article class="card primary">
+        <p class="label">Efficienza mensile</p>
+        <div class="value" id="efficienza">--</div>
+        <p class="sub">Foglio report: <span id="foglioReport">--</span></p>
+      </article>
+
+      <article class="card secondary">
+        <p class="label">Media giornaliera</p>
+        <div class="value" id="mediaGiornaliera">--</div>
+        <p class="sub">Foglio colli: <span id="foglioColli">--</span></p>
+      </article>
+    </section>
+
+    <section class="chart-card">
+      <div class="chart-header">
+        <div>
+          <p class="label">Andamento media ora per ora</p>
+          <h2>Media/h giornaliera</h2>
+        </div>
+        <div class="updated">
+          <span>Ultimo aggiornamento</span>
+          <strong id="ultimoAggiornamento">--</strong>
+        </div>
+      </div>
+      <div class="chart-wrap">
+        <svg id="lineChart" viewBox="0 0 1000 420" role="img" aria-label="Grafico andamento media ora per ora"></svg>
+        <div class="empty" id="emptyState">Nessun dato orario disponibile per il giorno selezionato.</div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
