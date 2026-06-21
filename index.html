@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dashboard Operativa - PAC2000A Fiano Romano</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=layout4" />
 </head>
 <body>
   <main class="dashboard">
@@ -13,10 +13,12 @@
         <p class="eyebrow">Magazzino Pac2000A Fiano Romano</p>
         <h1>Andamento operativo</h1>
       </div>
+
       <div class="header-actions">
-        <div class="date-badge" aria-label="Data del giorno">
+        <div class="date-display" aria-label="Data del giorno">
           <strong id="dataGiorno">--</strong>
         </div>
+
         <div class="status" aria-live="polite">
           <span class="dot" id="statusDot"></span>
           <span id="statusText">Caricamento dati...</span>
@@ -31,6 +33,19 @@
         <p class="sub">Foglio report: <span id="foglioReport">--</span></p>
       </article>
 
+      <article class="card dynamic" id="mediaMensileCard">
+        <p class="label">Media mensile</p>
+        <div class="metric-row">
+          <div class="value" id="mediaMensilePk">--</div>
+          <div class="delta-box" aria-label="Scostamento media mensile rispetto al target 110">
+            <span class="delta-label">Scostamento</span>
+            <span class="delta-value" id="scostamentoMediaMensile">--</span>
+            <span class="delta-target">vs target 110</span>
+          </div>
+        </div>
+        <p class="sub">Foglio report: <span id="foglioReportMedia">--</span></p>
+      </article>
+
       <article class="card dynamic" id="mediaCard">
         <p class="label">Media giornaliera</p>
         <div class="metric-row">
@@ -42,19 +57,6 @@
           </div>
         </div>
         <p class="sub">Foglio colli: <span id="foglioColli">--</span></p>
-      </article>
-
-      <article class="card dynamic" id="mediaMensileCard">
-        <p class="label">Media mensile PK</p>
-        <div class="metric-row">
-          <div class="value" id="mediaMensilePk">--</div>
-          <div class="delta-box" aria-label="Scostamento media mensile PK rispetto al target 110">
-            <span class="delta-label">Scostamento</span>
-            <span class="delta-value" id="scostamentoMediaMensile">--</span>
-            <span class="delta-target">vs target 110</span>
-          </div>
-        </div>
-        <p class="sub">Foglio report: <span id="foglioReportMedia">--</span></p>
       </article>
     </section>
 
@@ -77,6 +79,6 @@
     </section>
   </main>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=layout4"></script>
 </body>
 </html>
