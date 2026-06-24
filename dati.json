@@ -1,11 +1,11 @@
 {
   "efficienza_mensile": 65.9666863447184,
-  "media_giornaliera": 97.9876237623762,
+  "media_giornaliera": 0,
   "media_mensile_pk": 105.493422088161,
   "foglio_report": "Giugno 2026",
-  "foglio_colli": "24-06-2026",
-  "data_dashboard": "24/06/2026",
-  "ultimo_aggiornamento": "24/06/2026 23:55:09",
+  "foglio_colli": "25-06-2026",
+  "data_dashboard": "25/06/2026",
+  "ultimo_aggiornamento": "25/06/2026 00:00:19",
   "trend_orario": [
     {
       "media": 0,
@@ -16,64 +16,72 @@
       "ora": "5"
     },
     {
-      "media": 101.230769230769,
+      "media": 0,
       "ora": "6"
     },
     {
-      "media": 109.402173913043,
+      "media": 0,
       "ora": "7"
     },
     {
-      "media": 80.4042553191489,
+      "media": 0,
       "ora": "8"
     },
     {
-      "media": 96.5263157894737,
+      "media": 0,
       "ora": "9"
     },
     {
-      "media": 96.4736842105263,
+      "media": 0,
       "ora": "10"
     },
     {
-      "media": 96.1304347826087,
+      "media": 0,
       "ora": "11"
     },
     {
-      "media": 80.3625,
+      "media": 0,
       "ora": "12"
     },
     {
-      "media": 101.3125,
+      "media": 0,
       "ora": "13"
     },
     {
-      "media": 94.3521126760563,
+      "media": 0,
       "ora": "14"
     },
     {
-      "media": 95.6338028169014,
+      "media": 0,
       "ora": "15"
     },
     {
-      "media": 114.239436619718,
+      "media": 0,
       "ora": "16"
     },
     {
-      "media": 100.197183098592,
+      "media": 0,
       "ora": "17"
     },
     {
-      "media": 108.929577464789,
+      "media": 0,
       "ora": "18"
     },
     {
-      "media": 97.0428571428571,
+      "media": 0,
       "ora": "19"
     },
     {
-      "media": 102.529411764706,
+      "media": 0,
       "ora": "20"
+    },
+    {
+      "media": 0,
+      "ora": "21"
+    },
+    {
+      "media": 0,
+      "ora": "21:30"
     }
   ]
 }
