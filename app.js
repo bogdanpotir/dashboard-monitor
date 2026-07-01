@@ -166,7 +166,7 @@ function drawChart(rawPoints) {
   empty.classList.remove("show");
 
   const W = 1100, H = 430;
-  const margin = { top: 48, right: 48, bottom: 118, left: 88 };
+  const margin = { top: 48, right: 48, bottom: 118, left: 138 };
   const cw = W - margin.left - margin.right;
   const ch = H - margin.top - margin.bottom;
 
@@ -196,8 +196,9 @@ function drawChart(rawPoints) {
 
   const targetY = y(MEDIA_TARGET);
   if (targetY >= margin.top && targetY <= H - margin.bottom) {
-    add("line", { x1: margin.left, y1: targetY, x2: W - margin.right, y2: targetY, class: "target-line" });
-    add("text", { x: W - margin.right - 8, y: targetY - 10, class: "target-label", "text-anchor": "end" }, `Target ${MEDIA_TARGET}`);
+    const targetStartX = margin.left - 44;
+    add("line", { x1: targetStartX, y1: targetY, x2: W - margin.right, y2: targetY, class: "target-line" });
+    add("text", { x: margin.left - 52, y: targetY - 8, class: "target-label target-label-left", "text-anchor": "end" }, `Target ${MEDIA_TARGET}`);
   }
 
   const yAxisTitleY = margin.top + ch / 2 + 20;

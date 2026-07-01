@@ -398,3 +398,10 @@ svg { width: 100%; height: 100%; display: block; }
     font-size: 12px !important;
   }
 }
+
+
+/* TARGET LABEL V6 */
+.target-label-left {
+  font-size: 15px !important;
+  font-weight: 900 !important;
+}
