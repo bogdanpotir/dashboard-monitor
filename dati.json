@@ -1,11 +1,11 @@
 {
   "efficienza_mensile": 61.2064762220656,
-  "media_giornaliera": 109.134808853119,
+  "media_giornaliera": 96.5124555160142,
   "media_mensile_pk": 99.8825249824624,
   "foglio_report": "Luglio 2026",
   "foglio_colli": "15-07-2026",
   "data_dashboard": "15/07/2026",
-  "ultimo_aggiornamento": "15/07/2026 14:00:48",
+  "ultimo_aggiornamento": "15/07/2026 14:05:22",
   "trend_orario": [
     {
       "media": 0,
@@ -48,7 +48,7 @@
       "ora": "13"
     },
     {
-      "media": 0,
+      "media": -834.461538461538,
       "ora": "14"
     },
     {
