@@ -5,7 +5,7 @@
   "foglio_report": "Luglio 2026",
   "foglio_colli": "18-07-2026",
   "data_dashboard": "18/07/2026",
-  "ultimo_aggiornamento": "18/07/2026 06:30:19",
+  "ultimo_aggiornamento": "18/07/2026 06:35:13",
   "trend_orario": [
     {
       "media": 0,
@@ -46,42 +46,6 @@
     {
       "media": 0,
       "ora": "13"
-    },
-    {
-      "media": 0,
-      "ora": "14"
-    },
-    {
-      "media": 0,
-      "ora": "15"
-    },
-    {
-      "media": 0,
-      "ora": "16"
-    },
-    {
-      "media": 0,
-      "ora": "17"
-    },
-    {
-      "media": 0,
-      "ora": "18"
-    },
-    {
-      "media": 0,
-      "ora": "19"
-    },
-    {
-      "media": 0,
-      "ora": "20"
-    },
-    {
-      "media": 0,
-      "ora": "21"
-    },
-    {
-      "media": 0,
-      "ora": "21:30"
     }
   ]
 }
