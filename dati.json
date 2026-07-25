@@ -5,7 +5,7 @@
   "foglio_report": "Luglio 2026",
   "foglio_colli": "25-07-2026",
   "data_dashboard": "25/07/2026",
-  "ultimo_aggiornamento": "25/07/2026 11:10:12",
+  "ultimo_aggiornamento": "25/07/2026 11:15:10",
   "trend_orario": [
     {
       "media": 0,
@@ -33,7 +33,11 @@
     },
     {
       "media": 100.149253731343,
-      "ora": "1100"
+      "ora": "11"
+    },
+    {
+      "media": 0,
+      "ora": "12"
     },
     {
       "media": 0,
